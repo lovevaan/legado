@@ -7,7 +7,7 @@ on:
     paths:
       - 'CHANGELOG.md'
 #  schedule:
-#    - cron: '0 4 * * *'
+#    - cron: '0 4 15 * *'
 
 jobs:
   build:
