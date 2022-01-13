@@ -33,6 +33,7 @@ import splitties.init.appCtx
 data class BookChapter(
     var url: String = "",               // 章节地址
     var title: String = "",             // 章节标题
+    var isVolume: Boolean = false,    // 是否是卷名
     var baseUrl: String = "",           // 用来拼接相对url
     var bookUrl: String = "",           // 书籍地址
     var index: Int = 0,                 // 章节序号
@@ -108,6 +109,8 @@ data class BookChapter(
     }
 
     fun getAbsoluteURL(): String {
+        //二级目录解析的卷链接为空 返回目录页的链接
+        if (url.startsWith(title) && isVolume) return baseUrl
         val urlMatcher = AnalyzeUrl.paramPattern.matcher(url)
         val urlBefore = if (urlMatcher.find()) url.substring(0, urlMatcher.start()) else url
         val urlAbsoluteBefore = NetworkUtils.getAbsoluteURL(baseUrl, urlBefore)
